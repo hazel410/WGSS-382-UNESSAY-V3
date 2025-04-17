@@ -11,10 +11,13 @@ dest = uEnums.DESTINATIONS()
 # ------------------------------------------------------------------ #
 
 """
-An object being story related, i.e. and object which unlocks a door is
-denoted by "STRY: " begining the objects interaction text. It's a sloppy
-solution but its the only thing thats worked and I only have two weeks
-left. :/
+DOCUMENTATING QUIRKS OF RUSHED CODE:
+
+- STORY RELATED OBJECTS
+  An object being story related, i.e. and object which unlocks a door is
+  denoted by "STRY: " begining the objects interaction text. Furthermore,
+  no story related objects may have repeat text, or else weird shit will
+  happen.
 """
   
 ### ------math-------- ###
@@ -28,7 +31,7 @@ for x in range(8):
 ### ------hub-:3------ ###
 hubDoors = [
   ([hubXPos[0], dims.hubDoorHeight], "As you open the door, the smell of your childhood home creeps into you", dest.r1a),
-  ([hubXPos[1], dims.hubDoorHeight], "It's the bookstore with your mom. This is the first time you truly felt unloved", dest.none),
+  ([hubXPos[1], dims.hubDoorHeight], "It's the bookstore with your mom. This is the first time you truly felt unloved", dest.r2),
   ([hubXPos[2], dims.hubDoorHeight], "lalala", dest.none),
   ([hubXPos[3], dims.hubDoorHeight], "lalala", dest.none),
   ([hubXPos[4], dims.hubDoorHeight], "lalala", dest.none),
@@ -60,9 +63,10 @@ sc1bObjects = [
 sc2Doors = [
   ([hubXPos[1], dims.otherDoorHeight], "", dest.hub)
 ]
-scObjects = [
-  ([300, 300, 25, 30], (colr.youngPlayer), "STRY: It's you. You're sobbing. You felt so dejected and unwanted. There was nothing you could do to change yourself."),
-  ([20, 20, 30, 40], (colr.mom), "It's your mom; With tears she said she couldn't deal with you anymore because she didn't understand how to raise a child with autism.")
+sc2Objects = [
+  ([300, 170, 25, 30], (colr.youngPlayer), "STRY: It's you. You're sobbing. You felt so dejected and unwanted. There was nothing you could do to change yourself."),
+  ([450, 165, 30, 40], (colr.mom), "It's your mom; She told you with tears that she couldn't deal with you anymore because she didn't understand how to raise a child like you."),
+  ([550, 130, 50, 100], (colr.door), "It's a bookshelf. Your mom picked out a book titled \"How to deal with autistic children\"")
 ]
 ### ------------------ ###
 
@@ -72,9 +76,11 @@ doors = []
 doors.append(hubDoors)
 doors.append(sc1aDoors)
 doors.append(sc1bDoors)
+doors.append(sc2Doors)
 
 objects = []
 objects.append(hubObjects)
 objects.append(sc1aObjects)
 objects.append(sc1bObjects)
+objects.append(sc2Objects)
 ### ------------------ ###

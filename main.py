@@ -27,7 +27,7 @@ objects = []
 doors = []
 hubUnlocks = 1
 activeScreen = dest.hub
-tempInteraction = False
+interactedStoryObjects = []
 
 while running:
 
@@ -60,14 +60,14 @@ while running:
         object.touchingPlayer = True
       else:
         object.touchingPlayer = False
+      # if player interacts with interactable object
       if object.touchingPlayer and jPress and object.text != "":
         gameState = 0
-        tempInteraction = object.interacted
         object.interacted = True
-        # if story related and first time interacting
-        if object.storyRelated and not tempInteraction:
+        # if object is story related and first time interacting
+        if object.storyRelated and not object.text in interactedStoryObjects:
           hubUnlocks += 1
-          print("unlocking next door")
+          interactedStoryObjects.append(object.text)
         textbox.applyText(object.text)
     for door in doors:
       if player.detectObjectCollision(door.neswEdges):
@@ -106,6 +106,7 @@ while running:
     for objectInfo in uAssets.objects[activeScreen]:
       if objectInfo[2].find("STRY: ") == 0:
         objects.append(uEntities.OBJECT(objectInfo[0], objectInfo[1], (objectInfo[2])[6:]))
+        objects[-1].storyRelated = True
       else:
         objects.append(uEntities.OBJECT(objectInfo[0], objectInfo[1], objectInfo[2]))
     gameState = 1

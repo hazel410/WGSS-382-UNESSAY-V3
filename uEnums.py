@@ -46,6 +46,7 @@ class DESTINATIONS:
     self.hub = 0
     self.r1a = 1
     self.r1b = 2
+    self.r2 = 3
 
 class MISC:
   def __init__(self):
