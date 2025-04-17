@@ -104,9 +104,6 @@ class TEXTBOX:
       # handles an edge case
       if self.formatIndex == self.numWords and self.previousLine == m_lineBigCode:
         outputTemp.append(self.currentLine)
-      # print("word number: " + str(self.formatIndex))
-      # print("currentLine: " + str(self.currentLine))
-      # print("previouLine: " + str(self.previousLine))
     self.formattedText = outputTemp
 
     # Pads final output with blank lines to be divisible by maxRows

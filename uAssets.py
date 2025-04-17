@@ -9,6 +9,13 @@ dest = uEnums.DESTINATIONS()
 # entities file. Then, main will direct those objects to be drawn
 # by the display file
 # ------------------------------------------------------------------ #
+
+"""
+An object being story related, i.e. and object which unlocks a door is
+denoted by "STRY: " begining the objects interaction text. It's a sloppy
+solution but its the only thing thats worked and I only have two weeks
+left. :/
+"""
   
 ### ------math-------- ###
 hubYInt = dims.wBorder + dims.hubDoorSpacing
@@ -18,12 +25,10 @@ for x in range(8):
   hubXPos.append((hubSlope * x) + hubYInt)
 ### ------------------ ###
 
-
-
 ### ------hub-:3------ ###
 hubDoors = [
   ([hubXPos[0], dims.hubDoorHeight], "As you open the door, the smell of your childhood home creeps into you", dest.r1a),
-  ([hubXPos[1], dims.hubDoorHeight], "lalala", dest.none),
+  ([hubXPos[1], dims.hubDoorHeight], "It's the bookstore with your mom. This is the first time you truly felt unloved", dest.none),
   ([hubXPos[2], dims.hubDoorHeight], "lalala", dest.none),
   ([hubXPos[3], dims.hubDoorHeight], "lalala", dest.none),
   ([hubXPos[4], dims.hubDoorHeight], "lalala", dest.none),
@@ -31,7 +36,6 @@ hubDoors = [
   ([hubXPos[6], dims.hubDoorHeight], "lalala", dest.none),
   ([hubXPos[7], dims.hubDoorHeight], "lalala", dest.none)
 ]
-
 hubObjects = []
 ### ------------------ ###
 
@@ -41,14 +45,24 @@ sc1aDoors = [
   ([hubXPos[0], dims.hubDoorHeight], "", dest.r1b)
 ]
 sc1aObjects = [
-  ([550, 250, 30, 40], (colr.mom), "It's your mom. She's not reacting much."), 
-  ([500, 248, 30, 40], (colr.dad), "It's your dad. You don't remember why he was upset.")
+  ([550, 250, 30, 40], (colr.mom), "It's your mom. She's trying to maintain composure, but you knew she was scared too."), 
+  ([500, 248, 30, 40], (colr.dad), "It's your dad. You don't even remember why he was upset.")
 ]
 sc1bDoors = [
   ([hubXPos[0], dims.otherDoorHeight], "", dest.r1a)
 ]
 sc1bObjects = [
-  ([500, 300, 25, 30], (colr.youngPlayer), "It's you. You're scared. The walls barely muffle his yelling")
+  ([500, 300, 25, 30], (colr.youngPlayer), "STRY: It's you. You're scared. The walls barely muffle his yelling")
+]
+### ------------------ ###
+
+### ----screen-2------ ###
+sc2Doors = [
+  ([hubXPos[1], dims.otherDoorHeight], "", dest.hub)
+]
+scObjects = [
+  ([300, 300, 25, 30], (colr.youngPlayer), "STRY: It's you. You're sobbing. You felt so dejected and unwanted. There was nothing you could do to change yourself."),
+  ([20, 20, 30, 40], (colr.mom), "It's your mom; With tears she said she couldn't deal with you anymore because she didn't understand how to raise a child with autism.")
 ]
 ### ------------------ ###
 

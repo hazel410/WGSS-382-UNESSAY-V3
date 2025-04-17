@@ -163,7 +163,7 @@ class PLAYER:
     self.updatePositionDependencies()
 
 class OBJECT:
-  def __init__(self, rect, color, text):
+  def __init__(self, rect, color, text, storyRelated=False):
     self.rect = rect
     self.nEdge = self.rect[1]
     self.eEdge = self.rect[0] + self.rect[2]
@@ -177,9 +177,9 @@ class OBJECT:
                    angleBetween(self.center, [self.eEdge, self.sEdge])]
     self.color = color
     self.text = text
-    self.archiveText = text
     self.touchingPlayer = False
     self.interacted = False
+    self.storyRelated = storyRelated
 
 class DOOR:
   def __init__(self, position, unlockText, target, lockedText=misc.lockedText):
