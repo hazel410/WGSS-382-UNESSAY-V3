@@ -14,7 +14,9 @@ class MAIN():
   def __init__(self):
     # pygame inits
     self.DIMENSIONS = uEnums.DIMENSIONS()
-    self.screen = pygame.display.set_mode([self.DIMENSIONS.wScreen, self.DIMENSIONS.hScreen])
+    self.screen = pygame.display.set_mode(
+      [self.DIMENSIONS.wScreen, self.DIMENSIONS.hScreen], 
+      flags=pygame.SCALED)
     self.clock = pygame.time.Clock()
     pygame.display.set_caption("WGSS382 UNESSAY: Untitled")
     
