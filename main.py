@@ -9,14 +9,16 @@ import uDisplay
 import uInput
 import uAssets
 import uEntities
+import uConf
 
 class MAIN():
   def __init__(self):
     # pygame inits
     self.DIMENSIONS = uEnums.DIMENSIONS()
-    self.screen = pygame.display.set_mode(
-      [self.DIMENSIONS.wScreen, self.DIMENSIONS.hScreen], 
-      flags=pygame.SCALED)
+    if uConf.RUNNING_LOCALLY:
+      self.screen = pygame.display.set_mode([self.DIMENSIONS.wScreen, self.DIMENSIONS.hScreen],flags=pygame.SCALED)
+    else:
+      self.screen = pygame.display.set_mode([self.DIMENSIONS.wScreen, self.DIMENSIONS.hScreen])
     self.clock = pygame.time.Clock()
     pygame.display.set_caption("WGSS382 UNESSAY: Untitled")
     
@@ -25,15 +27,15 @@ class MAIN():
     self.textbox = uDisplay.TEXTBOX(self.screen)
     self.player = uEntities.PLAYER()
     self.events = uInput.EVENTS()
-    self.dest = uEnums.DESTINATIONS()
+    self.dests = uEnums.DESTINATIONS()
 
     # important loop vars
-    self.target = self.dest.none
+    self.target = self.dests.none
     self.gameState = 2
     self.objects = []
     self.doors = []
     self.hubUnlocks = 1
-    self.activeScreen = self.dest.hub
+    self.activeScreen = self.dests.hub
     self.interactedStoryObjects = []
 
     # dynamic loop vars
@@ -79,7 +81,7 @@ class MAIN():
       if self.jPress:
         self.textbox.advanceText()
       if not self.textbox.displayTrue:
-        if self.target == self.dest.none:
+        if self.target == self.dests.none:
           self.gameState = 1
         else:
           self.gameState = 2
@@ -115,7 +117,7 @@ class MAIN():
       else:
         door.touchingPlayer = False
       if door.touchingPlayer and self.jPress:
-        if door.currentTarget == self.dest.none:
+        if door.currentTarget == self.dests.none:
           self.gameState = 0
           self.textbox.applyText(door.dispText)
         else:
@@ -129,9 +131,9 @@ class MAIN():
     self.objects = []
     for doorInfo in uAssets.doors[self.activeScreen]:
       currentDoor = uEntities.DOOR(doorInfo[0], doorInfo[1], doorInfo[2])
-      if self.activeScreen == self.dest.hub:
+      if self.activeScreen == self.dests.hub:
         # this if prevents fuckery on game start
-        if self.target != self.dest.none:
+        if self.target != self.dests.none:
           self.player.setMiddle()
         if self.keyIter < self.hubUnlocks:
           currentDoor.unlock()
@@ -147,7 +149,7 @@ class MAIN():
       else:
         self.objects.append(uEntities.OBJECT(objectInfo[0], objectInfo[1], objectInfo[2]))
     self.gameState = 1
-    self.target = self.dest.none
+    self.target = self.dests.none
     
   def handleDrawing(self):
     self.dauber.drawPlayArea()

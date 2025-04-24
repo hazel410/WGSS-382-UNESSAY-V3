@@ -18,8 +18,9 @@ class COLORS:
     self.lockedDoor = (70, 70, 70)
     self.lockedDoorKnob = (70, 70, 70)
     self.youngPlayer = (20, 140, 240)
-    self.mom = (120, 100, 70)
+    self.mom = (200, 100, 20)
     self.dad = (200, 20, 50)
+    self.miscPerson = (20, 200, 150)
 
 class DIMENSIONS:
   def __init__(self):
@@ -47,6 +48,7 @@ class DESTINATIONS:
     self.r1a = 1
     self.r1b = 2
     self.r2 = 3
+    self.r3 = 4
 
 class MISC:
   def __init__(self):
