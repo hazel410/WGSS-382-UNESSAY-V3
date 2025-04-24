@@ -1,138 +1,163 @@
+import numpy
+import asyncio
 import pygame
+
 pygame.init()
+
+import uEnums
 import uDisplay
 import uInput
 import uAssets
 import uEntities
-import uEnums
 
-# Pygame inits
-dims = uEnums.DIMENSIONS()
-screen = pygame.display.set_mode([dims.wScreen, dims.hScreen], flags=pygame.SCALED, vsync=1)
-pygame.display.set_caption("WGSS382 UNESSAY: Untitled")
-clock = pygame.time.Clock()
+class MAIN():
+  def __init__(self):
+    # pygame inits
+    self.DIMENSIONS = uEnums.DIMENSIONS()
+    self.screen = pygame.display.set_mode([self.DIMENSIONS.wScreen, self.DIMENSIONS.hScreen])
+    self.clock = pygame.time.Clock()
+    pygame.display.set_caption("WGSS382 UNESSAY: Untitled")
+    
+    # grabbing classes from other files
+    self.dauber = uDisplay.DAUBER(self.screen)
+    self.textbox = uDisplay.TEXTBOX(self.screen)
+    self.player = uEntities.PLAYER()
+    self.events = uInput.EVENTS()
+    self.dest = uEnums.DESTINATIONS()
 
-# Grabbing other files' classes
-dauber = uDisplay.DAUBER(screen)
-textbox = uDisplay.TEXTBOX(screen)
-player = uEntities.PLAYER()
-events = uInput.EVENTS()
-dest = uEnums.DESTINATIONS()
+    # important loop vars
+    self.target = self.dest.none
+    self.gameState = 2
+    self.objects = []
+    self.doors = []
+    self.hubUnlocks = 1
+    self.activeScreen = self.dest.hub
+    self.interactedStoryObjects = []
 
-# Important variables
-running = True
-target = dest.none
-gameState = 2
-objects = []
-doors = []
-hubUnlocks = 1
-activeScreen = dest.hub
-interactedStoryObjects = []
+    # dynamic loop vars
+    self.quit = False
+    self.jPress = False
+    self.fPress = False
+    self.movement = [False, False, False, False]
+    self.keyIter = 0
+    
+    asyncio.run(self.main())
 
-while running:
+  async def main(self):
+    while True:
 
-  # Grabbing Events
-  events.getEvents()
-  quit = events.quit
-  jPress = events.jPress
-  fPress = events.fPress
-  movement = events.move
+      # grabbing events
+      self.events.getEvents()
+      self.quit = self.events.quit
+      self.jPress = self.events.jPress
+      self.fPress = self.events.fPress
+      self.movement = self.events.move
 
-  # Textbox logic
-  if gameState == 0:
-    if jPress:
-      textbox.advanceText()
-    if not textbox.displayTrue:
-      if target == dest.none:
-        gameState = 1
-      else:
-        gameState = 2
-        activeScreen = target
+      # handling game state
+      if self.gameState == 0:
+        self.handleTextboxState()
+      elif self.gameState == 1:
+        self.handleWalkingState()
+      elif self.gameState == 2:
+        self.handleTransitionState()
+      
+      self.handleDrawing()
+      
+      if self.fPress:
+        pygame.display.toggle_fullscreen()
+      if self.quit:
+        return
+      pygame.display.flip()
+      self.clock.tick(60)
+      
+      await asyncio.sleep(0)
   
-  # movement logic
-  elif gameState == 1:
-    player.applyVelocity(movement)
-    player.snapBorder()
-    for object in objects:
-      if player.detectObjectCollision(object.neswEdges):
-        player.fixObjectCollision(object.rect, object.angles, object.center)
-      if player.isTouchingObject(object.neswEdges):
+  def handleTextboxState(self):
+    if self.gameState == 0:
+      if self.jPress:
+        self.textbox.advanceText()
+      if not self.textbox.displayTrue:
+        if self.target == self.dest.none:
+          self.gameState = 1
+        else:
+          self.gameState = 2
+          self.activeScreen = self.target
+
+  def handleWalkingState(self):
+    
+    self.player.applyVelocity(self.movement)
+    self.player.snapBorder()
+    
+    for object in self.objects:
+      if self.player.detectObjectCollision(object.neswEdges):
+        self.player.fixObjectCollision(object.rect, object.angles, object.center)
+      if self.player.isTouchingObject(object.neswEdges):
         object.touchingPlayer = True
       else:
         object.touchingPlayer = False
       # if player interacts with interactable object
-      if object.touchingPlayer and jPress and object.text != "":
-        gameState = 0
+      if object.touchingPlayer and self.jPress and object.text != "":
+        self.gameState = 0
         object.interacted = True
         # if object is story related and first time interacting
-        if object.storyRelated and not object.text in interactedStoryObjects:
-          hubUnlocks += 1
-          interactedStoryObjects.append(object.text)
-        textbox.applyText(object.text)
-    for door in doors:
-      if player.detectObjectCollision(door.neswEdges):
-        player.fixObjectCollision(door.rect, door.angles, door.center)
-      if player.isTouchingObject(door.neswEdges):
+        if object.storyRelated and not object.text in self.interactedStoryObjects:
+          self.hubUnlocks += 1
+          self.interactedStoryObjects.append(object.text)
+        self.textbox.applyText(object.text)
+    
+    for door in self.doors:
+      if self.player.detectObjectCollision(door.neswEdges):
+        self.player.fixObjectCollision(door.rect, door.angles, door.center)
+      if self.player.isTouchingObject(door.neswEdges):
         door.touchingPlayer = True
       else:
         door.touchingPlayer = False
-      if door.touchingPlayer and jPress:
-        if door.currentTarget == dest.none:
-          gameState = 0
-          textbox.applyText(door.dispText)
+      if door.touchingPlayer and self.jPress:
+        if door.currentTarget == self.dest.none:
+          self.gameState = 0
+          self.textbox.applyText(door.dispText)
         else:
-          target = door.currentTarget
-          textbox.applyText(door.dispText)
-          gameState = 0
-  
-  # transistion logic
-  elif gameState == 2:
-    keyIter = 0
-    doors = []
-    objects = []
-    for doorInfo in uAssets.doors[activeScreen]:
+          self.target = door.currentTarget
+          self.textbox.applyText(door.dispText)
+          self.gameState = 0
+    
+  def handleTransitionState(self):
+    self.keyIter = 0
+    self.doors = []
+    self.objects = []
+    for doorInfo in uAssets.doors[self.activeScreen]:
       currentDoor = uEntities.DOOR(doorInfo[0], doorInfo[1], doorInfo[2])
-      if activeScreen == dest.hub:
+      if self.activeScreen == self.dest.hub:
         # this if prevents fuckery on game start
-        if target != dest.none:
-          player.setMiddle()
-        if keyIter < hubUnlocks:
+        if self.target != self.dest.none:
+          self.player.setMiddle()
+        if self.keyIter < self.hubUnlocks:
           currentDoor.unlock()
-        keyIter += 1
+        self.keyIter += 1
       else:
-        player.setMiddle()
+        self.player.setMiddle()
         currentDoor.unlock()
-      doors.append(currentDoor)
-    for objectInfo in uAssets.objects[activeScreen]:
+      self.doors.append(currentDoor)
+    for objectInfo in uAssets.objects[self.activeScreen]:
       if objectInfo[2].find("STRY: ") == 0:
-        objects.append(uEntities.OBJECT(objectInfo[0], objectInfo[1], (objectInfo[2])[6:]))
-        objects[-1].storyRelated = True
+        self.objects.append(uEntities.OBJECT(objectInfo[0], objectInfo[1], (objectInfo[2])[6:]))
+        self.objects[-1].storyRelated = True
       else:
-        objects.append(uEntities.OBJECT(objectInfo[0], objectInfo[1], objectInfo[2]))
-    gameState = 1
-    target = dest.none
-  
-  # Display calls
-  dauber.drawPlayArea()
-  dauber.drawBorder()
-  dauber.drawEntity(player.rect, player.color)
-  for object in objects:
-    dauber.drawEntity(object.rect, object.color)
-  for door in doors:
-    dauber.drawEntity(door.rect, door.cDispDoor)
-    dauber.drawEntity(door.knobRect, door.cDispKnob)
-  if textbox.displayTrue:
-    textbox.drawTextbox()
-  dauber.drawEntity(player.rect, player.color)
+        self.objects.append(uEntities.OBJECT(objectInfo[0], objectInfo[1], objectInfo[2]))
+    self.gameState = 1
+    self.target = self.dest.none
+    
+  def handleDrawing(self):
+    self.dauber.drawPlayArea()
+    self.dauber.drawBorder()
+    self.dauber.drawEntity(self.player.rect, self.player.color)
+    for object in self.objects:
+      self.dauber.drawEntity(object.rect, object.color)
+    for door in self.doors:
+      self.dauber.drawEntity(door.rect, door.cDispDoor)
+      self.dauber.drawEntity(door.knobRect, door.cDispKnob)
+    if self.textbox.displayTrue:
+      self.textbox.drawTextbox()
+    self.dauber.drawEntity(self.player.rect, self.player.color)
 
-  # final processes
-  if fPress:
-    pygame.display.toggle_fullscreen()
-  if quit:
-    running = False
-  pygame.display.flip()
-  clock.tick(60)
-
-# game is over now :3
-pygame.quit()
-print("thanks for playing :)")
+MAIN()

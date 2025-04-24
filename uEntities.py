@@ -1,6 +1,5 @@
 import uEnums
-from numpy import arctan
-from numpy import pi
+import numpy
 
 # ------------------------------------------------------------------ #
 # This file contains the classes for objects, the player, doors, etc.
@@ -32,7 +31,7 @@ def angleBetween(point1, point2):
         return 270
     # if not div0, calculates angle
     else:
-      rawAngle = (arctan(yDel / xDel) * (180 / pi))
+      rawAngle = (numpy.arctan(yDel / xDel) * (180 / numpy.pi))
       if xDel > 0 and yDel > 0:   # Q4
         return 360 - abs(rawAngle)
       elif xDel < 0 and yDel > 0: # Q3
