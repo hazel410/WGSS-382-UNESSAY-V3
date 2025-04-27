@@ -53,7 +53,7 @@ class PLAYER:
     self.updatePositionDependencies()
     self.speedModifier = 4
     self.velocity = [0, 0]
-    self.color = colr.player
+    self.color = colr.transPlayer
     
   def updatePositionDependencies(self):
     """

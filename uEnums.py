@@ -7,8 +7,10 @@ import pygame
 
 class COLORS:
   def __init__(self):
+    self.transPlayer = (245, 169, 183)
+    self.eggPlayer = (167, 187, 216)
+    self.cisPlayer = (90, 205, 250)
     self.playArea = (30, 30, 30)
-    self.player = (128, 128, 128)
     self.textboxBorder = (128, 128, 128)
     self.textboxInner = (30, 30, 30)
     self.text = (230, 230, 230)
@@ -17,11 +19,9 @@ class COLORS:
     self.doorknob = (255, 225, 25)
     self.lockedDoor = (70, 70, 70)
     self.lockedDoorKnob = (70, 70, 70)
-    self.youngPlayer = (20, 140, 240)
     self.mom = (200, 100, 20)
     self.dad = (200, 20, 50)
     self.miscPerson = (20, 200, 150)
-    self.teenPlayer = (75, 35, 185)
 
 class DIMENSIONS:
   def __init__(self):
@@ -58,6 +58,10 @@ class DESTINATIONS:
     self.r2 = 3
     self.r3 = 4
     self.r4 = 5
+    self.r5 = 6
+    self.r6 = 7
+    self.r7 = 8
+    self.r8 = 9
 
 class MISC:
   def __init__(self):
