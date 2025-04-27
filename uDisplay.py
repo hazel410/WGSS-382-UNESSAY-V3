@@ -105,10 +105,11 @@ class TEXTBOX:
       if self.formatIndex == self.numWords and self.previousLine == m_lineBigCode:
         outputTemp.append(self.currentLine)
     self.formattedText = outputTemp
-
+    
     # Pads final output with blank lines to be divisible by maxRows
-    for x in range(self.maxRows - len(outputTemp) % self.maxRows):
-      self.formattedText.append("")
+    if len(outputTemp) % self.maxRows != 0:
+      for missingLine in range(self.maxRows - (len(outputTemp) % self.maxRows)):
+        self.formattedText.append("")
   
   def advanceText(self):
     del self.formattedText[0:(self.maxRows)]

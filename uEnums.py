@@ -21,6 +21,7 @@ class COLORS:
     self.mom = (200, 100, 20)
     self.dad = (200, 20, 50)
     self.miscPerson = (20, 200, 150)
+    self.teenPlayer = (75, 35, 185)
 
 class DIMENSIONS:
   def __init__(self):
@@ -41,6 +42,13 @@ class DIMENSIONS:
     self.hubDoorSpacing = 40
     self.otherDoorHeight = 285
   
+"""
+DOCUMENTING RUSHED CODE:
+
+- the order of items in uAssets must reflect the numerical
+  ordering present in this, or wrongwarps will happen
+"""
+
 class DESTINATIONS:
   def __init__(self):
     self.none = -1
@@ -49,6 +57,7 @@ class DESTINATIONS:
     self.r1b = 2
     self.r2 = 3
     self.r3 = 4
+    self.r4 = 5
 
 class MISC:
   def __init__(self):

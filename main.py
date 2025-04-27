@@ -2,7 +2,7 @@ import numpy
 import asyncio
 import pygame
 
-pygame.init()
+pygame.init() # needs to be called before uEnums/uDisplay
 
 import uEnums
 import uDisplay
@@ -34,7 +34,7 @@ class MAIN():
     self.gameState = 2
     self.objects = []
     self.doors = []
-    self.hubUnlocks = 1
+    self.hubUnlocks = 8
     self.activeScreen = self.dests.hub
     self.interactedStoryObjects = []
 
