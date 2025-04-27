@@ -45,6 +45,7 @@ class MAIN():
     self.movement = [False, False, False, False]
     self.keyIter = 0
     
+    self.gameStart()
     asyncio.run(self.main())
 
   async def main(self):
@@ -56,7 +57,7 @@ class MAIN():
       self.jPress = self.events.jPress
       self.fPress = self.events.fPress
       self.movement = self.events.move
-
+      
       # handling game state
       if self.gameState == 0:
         self.handleTextboxState()
@@ -75,6 +76,10 @@ class MAIN():
       self.clock.tick(60)
       
       await asyncio.sleep(0)
+  
+  def gameStart(self):
+    self.handleTransitionState()
+    self.textbox.applyText(uAssets.controls)
   
   def handleTextboxState(self):
     if self.gameState == 0:
@@ -129,27 +134,33 @@ class MAIN():
     self.keyIter = 0
     self.doors = []
     self.objects = []
+    
     for doorInfo in uAssets.doors[self.activeScreen]:
       currentDoor = uEntities.DOOR(doorInfo[0], doorInfo[1], doorInfo[2])
       if self.activeScreen == self.dests.hub:
+        
         # this if prevents fuckery on game start
         if self.target != self.dests.none:
           self.player.setMiddle()
+
         if self.keyIter < self.hubUnlocks:
           currentDoor.unlock()
+        
         self.keyIter += 1
       else:
         self.player.setMiddle()
         currentDoor.unlock()
       self.doors.append(currentDoor)
+    
     for objectInfo in uAssets.objects[self.activeScreen]:
       if objectInfo[2].find("STRY: ") == 0:
         self.objects.append(uEntities.OBJECT(objectInfo[0], objectInfo[1], (objectInfo[2])[6:]))
         self.objects[-1].storyRelated = True
       else:
         self.objects.append(uEntities.OBJECT(objectInfo[0], objectInfo[1], objectInfo[2]))
-    self.gameState = 1
+    
     self.target = self.dests.none
+    self.gameState = 1
     
   def handleDrawing(self):
     self.dauber.drawPlayArea()

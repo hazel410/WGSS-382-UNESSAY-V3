@@ -28,15 +28,17 @@ for x in range(8):
   hubXPos.append((hubSlope * x) + hubYInt)
 ### ------------------ ###
 
+controls = "WASD for Movement, J to interact"
+
 doors = [
   # HUB
   [
-    ([hubXPos[0], dims.hubDoorHeight], "As you open the door, the smell of your childhood home creeps into you", dest.r1a),
-    ([hubXPos[1], dims.hubDoorHeight], "It's the bookstore with your mom. This is the first time you truly felt unloved", dest.r2),
-    ([hubXPos[2], dims.hubDoorHeight], "It's your first week of middle school", dest.r3),
-    ([hubXPos[3], dims.hubDoorHeight], "You were so hateful", dest.r4),
-    ([hubXPos[4], dims.hubDoorHeight], "4 years later, after an early leave from school, you began to think inwards", dest.r5),
-    ([hubXPos[5], dims.hubDoorHeight], "A few more years later, you've aligned with yourself. You've moved to a new school, and you've been trying to explore dating", dest.r6),
+    ([hubXPos[0], dims.hubDoorHeight], "As you open the door, the smell of your childhood home creeps into you.", dest.r1a),
+    ([hubXPos[1], dims.hubDoorHeight], "It's the bookstore with your mom. This is the first time you truly felt unloved.", dest.r2),
+    ([hubXPos[2], dims.hubDoorHeight], "It's your first week of middle school.", dest.r3),
+    ([hubXPos[3], dims.hubDoorHeight], "You were so hateful.", dest.r4),
+    ([hubXPos[4], dims.hubDoorHeight], "4 years later, after an early leave from school, you began to think inwards.", dest.r5),
+    ([hubXPos[5], dims.hubDoorHeight], "A few more years later, you've aligned with yourself. You've moved to a new school, and you've been trying to explore dating.", dest.r6),
     ([hubXPos[6], dims.hubDoorHeight], "It's the summer after your year of romantic exploration.", dest.r7),
     ([hubXPos[7], dims.hubDoorHeight], "You swore after the summer you wouldn't ever date again. You broke that shortly after.", dest.r8)
   ],
@@ -75,7 +77,7 @@ doors = [
   ],
   # Screen 8
   [
-    ([hubXPos[7], dims.otherDoorHeight], "Thanks for playing", dest.hub)
+    ([hubXPos[7], dims.otherDoorHeight], "Thanks for playing :)", dest.hub)
   ],
 ]
 
@@ -91,17 +93,17 @@ objects = [
   ],
   # Screen 1b
   [
-    ([500, 300, 25, 30], (colr.cisPlayer), "STRY: It's you. You're scared. The walls barely muffle his yelling")
+    ([500, 300, 25, 30], (colr.cisPlayer), "STRY: It's you. You're scared. The walls barely muffle his yelling.")
   ],
   # Screen 2
   [
     ([300, 170, 25, 30], (colr.cisPlayer), "STRY: It's you. You're sobbing. You felt so dejected and unwanted. There was nothing you could do to change yourself."),
-    ([450, 165, 30, 40], (colr.mom), "It's your mom; She seemed so tired. But you couldn't blame her."),
-    ([550, 130, 50, 100], (colr.door), "It's a bookshelf. Your mom picked out a book titled \"How to deal with autistic children\"")
+    ([450, 165, 30, 40], (colr.mom), "It's your mom; She said raising you was so draining. She was so tired of you. And you couldn't blame her."),
+    ([550, 130, 50, 100], (colr.door), "It's a bookshelf. Your mom picked out a book titled \"How to deal with autistic children.\"")
   ],
   # Screen 3
   [
-    ([410, 150, 25, 30], (colr.cisPlayer), "STRY: You knew they were making fun of you, but you pretended not to because it felt good to be included"),
+    ([410, 150, 25, 30], (colr.cisPlayer), "STRY: You knew they were making fun of you, but you pretended not to because it felt good to be included."),
     ([450, 130, 25, 30], (colr.miscPerson), "You hope they're doing alright now."),
     ([360, 135, 25, 30], (colr.miscPerson), "You remember all too well what they were saying. That word still breathes so much displeasure into you.")
   ],
@@ -109,8 +111,8 @@ objects = [
   [
     ([460, 120, 25, 30], (colr.cisPlayer), "STRY: You said some hurtful joke. You were surronded by other \"edgy\" assholes. You could finally ignore all the people punching down on you if you just punched down on others."),
     ([500, 100, 80, 150], (colr.lockedDoor), "The table is grey with blue dots. You're all eating flavorless spaghetti."),
-    ([460, 180, 25, 30], (colr.miscPerson), "It's your bestfriend. In a few years you two will have a falling out as you begin to understand the hurt you've caused. For now he gives a sliver of comfort."),
-    ([600, 120, 25, 30], (colr.miscPerson), "They wanted to try new pronouns. Years later you will too. But you weren't ready to face that yet.")
+    ([460, 180, 25, 30], (colr.miscPerson), "It's your best friend. In a few years you two will have a falling out as you begin to understand the hurt you've caused. For now he gives a sliver of comfort."),
+    ([600, 120, 25, 30], (colr.miscPerson), "It's someone that had the misfortune of being roped into your group of people. They wanted to try new pronouns. Years later you will too. But you weren't ready to face that yet.")
   ],
   # Screen 5
   [
@@ -130,7 +132,7 @@ objects = [
   # Screen 8
   [
     ([285, 120, dims.wPlayer, dims.hPlayer], (colr.transPlayer), "STRY: You are so angry at yourself for feeling hopeful. You're scared it'll happen again. That you'll feel so unloved again. But right now you're in control."),
-    ([380, 130, 20, 15], (colr.mom), "It gives you control"),
+    ([380, 130, 20, 15], (colr.mom), "It gives you control."),
     ([250, 130, 8, 12], (colr.lockedDoor), "You're messaging with a girl you met a while ago. You're re-meeting and you both feel something.")
   ],
 ]
