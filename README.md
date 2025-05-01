@@ -9,7 +9,7 @@ This game contains discussions of...
 - domestic violence
 - and self harm.
 ## Play
-The game is available to play online at [itch.io](https://en.wikipedia.org/wiki/Placeholder)\
+The game is available to play online at [itch.io](hazel410.itch.io/wgss382-unessay-untitled)\
 You may also play locally by cloning the repo and installing dependencies. If you do this, make sure to update `RUNNING_LOCALLY` in [`uConf.py`](uConf.py), or else the display will be fucked (and you'll be able to fullscreen)
 ## Controls
 - WASD for movement
