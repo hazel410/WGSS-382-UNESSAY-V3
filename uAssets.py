@@ -122,7 +122,7 @@ objects = [
   # Screen 6
   [
     ([200, 120, dims.wPlayer, dims.hPlayer], (colr.eggPlayer), "STRY: You feel so much disgust towards yourself. You don't blame them. You can only blame yourself."),
-    ([165, 130, 8, 12], (colr.lockedDoor), "It's a conversation between you and someone you've been talking to. In a bout of insecurity you end up asking if they'd prefer a \"normal\" girl. They said yes.")
+    ([165, 130, 8, 12], (colr.lockedDoor), "It's a conversation between you and someone you've been talking to. In a bout of insecurity you end up asking if they'd prefer a \"normal\" girl. She said yes.")
   ],
   # Screen 7
   [
