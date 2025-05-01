@@ -79,6 +79,10 @@ doors = [
   [
     ([hubXPos[7], dims.otherDoorHeight], "Thanks for playing :)", dest.hub)
   ],
+  # Demo Screen
+  [
+    
+  ]
 ]
 
 objects = [
@@ -135,4 +139,8 @@ objects = [
     ([380, 130, 20, 15], (colr.mom), "It gives you control."),
     ([250, 130, 8, 12], (colr.lockedDoor), "You're messaging with a girl you met a while ago. You're re-meeting and you both feel something.")
   ],
+  # Demo Screen
+  [
+    ([100, 200, 50, 50], (95, 230, 40), "Here's my game")
+  ]
 ]

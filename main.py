@@ -35,7 +35,7 @@ class MAIN():
     self.objects = []
     self.doors = []
     self.hubUnlocks = 1
-    self.activeScreen = self.dests.hub
+    self.activeScreen = 10
     self.interactedStoryObjects = []
 
     # dynamic loop vars
@@ -79,7 +79,7 @@ class MAIN():
   
   def gameStart(self):
     self.handleTransitionState()
-    self.textbox.applyText(uAssets.controls)
+    # self.textbox.applyText(uAssets.controls)
   
   def handleTextboxState(self):
     if self.gameState == 0:
